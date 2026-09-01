@@ -1,0 +1,170 @@
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+
+int cqueue[5]={-1,-1,-1,-1,-1};
+int rear=-1;
+int front=0;
+
+void enqueue(int);
+void dequeue();
+void print();
+
+void main()
+{
+int ch,x;
+
+while(1)
+{
+printf("\n1.enqueue\t 2.dequeue\t 3.Printqueue\t 4.Exit\n");
+printf("Enter your Choice\n");
+scanf("%d",&ch);
+
+switch(ch)
+{
+case 1:
+printf("enter the element to be inserted\n");
+scanf("%d",&x);
+
+printf("Before Enqueue-");
+print();
+
+enqueue(x);
+break;
+
+case 2:
+printf("Before dequeue-");
+print();
+
+dequeue();
+break;
+
+case 3:
+print();
+break;
+
+case 4:
+exit(0);
+break;
+
+default:
+printf("Invalid Choice\n");
+}
+}
+
+getch();
+}
+
+void enqueue(int x)
+{
+if((rear+1)%5==front && cqueue[front]!=-1)
+{
+printf("queue is full");
+}
+else
+{
+rear=(rear+1)%5;
+cqueue[rear]=x;
+
+printf("\nAfter enqueue- rear= %d\n",rear);
+print();
+}
+}
+
+void dequeue()
+{
+int del;
+
+if(cqueue[front]==-1)
+{
+printf("circular queue is empty");
+}
+else
+{
+del=cqueue[front];
+cqueue[front]=-1;
+
+printf("\nThe deleted item is %d\n",del);
+
+if(front==rear)
+{
+front=0;
+rear=-1;
+}
+else
+{
+front=(front+1)%5;
+}
+
+printf("After dequeue front=%d\n",front);
+print();
+}
+}
+
+void print()
+{
+int i;
+
+printf("Queue Contents are\n");
+
+if(rear==-1 || cqueue[front]==-1)
+{
+printf("Empty");
+return;
+}
+
+i=front;
+
+while(1)
+{
+printf("%d\t",cqueue[i]);
+
+if(i==rear)
+break;
+
+i=(i+1)%5;
+}
+}
+OUTPUT
+
+1.enqueue 2.dequeue 3.Printqueue 4.Exit
+Enter your Choice
+1
+enter the element to be inserted
+10
+Before Enqueue-Queue Contents are
+Empty
+After enqueue- rear= 0
+Queue Contents are
+10
+
+1.enqueue 2.dequeue 3.Printqueue 4.Exit
+Enter your Choice
+1
+enter the element to be inserted
+20
+Before Enqueue-Queue Contents are
+10
+After enqueue- rear= 1
+Queue Contents are
+10 20
+
+1.enqueue 2.dequeue 3.Printqueue 4.Exit
+Enter your Choice
+2
+Before dequeue-Queue Contents are
+10 20
+The deleted item is 10
+After dequeue front=1
+Queue Contents are
+20
+
+1.enqueue 2.dequeue 3.Printqueue 4.Exit
+Enter your Choice
+3
+Queue Contents are
+20
+
+1.enqueue 2.dequeue 3.Printqueue 4.Exit
+Enter your Choice
+4
